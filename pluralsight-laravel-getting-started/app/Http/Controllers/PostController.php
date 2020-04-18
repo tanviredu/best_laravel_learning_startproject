@@ -14,8 +14,8 @@ class PostController extends Controller
     // in the admin panel
     public function getAdminIndex()
     {
-        $post = new Post();
-        $posts = Post::all();
+        //$posts = Post::all();
+        $posts = Post::orderBy('title','asc')->get();
         return view('admin.index', ['posts' => $posts]);
     }
 
@@ -29,7 +29,12 @@ class PostController extends Controller
 
     // this function will show the index file
     public function getIndex(){
-        $posts = Post::all();
+
+        
+        //$posts = Post::all();
+        // now we will use the query builder
+        // now the last post comes first
+        $posts = Post::orderBy('created_at','desc')->get();
         return view('blog.index',['posts'=>$posts]);
     }
 
@@ -86,8 +91,11 @@ class PostController extends Controller
         // getting a single post
     public function getPost($id)
     {   
-        // find uses the find
-        $post = Post::find($id); 
+        // find uses the find / this is the eloquent
+        //$post = Post::find($id); 
+        // this is the querybuilder 
+        $post = Post::where('id',$id)->first();
+        // this is the alternative
         return view('blog.post', ['post' => $post]);
     }
 
