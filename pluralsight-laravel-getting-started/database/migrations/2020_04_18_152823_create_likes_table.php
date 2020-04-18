@@ -11,21 +11,19 @@ class CreateLikesTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
-        Schema::create('likes', function (Blueprint $table) {
+    public function up(){
+        Schema::create('likes',function(Blueprint $table){
+
+            // this will be part of the 
+            // foreign key
             $table->increments('id');
             $table->timestamps();
+
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
+
+    public function down(){
         Schema::drop('likes');
     }
 }
