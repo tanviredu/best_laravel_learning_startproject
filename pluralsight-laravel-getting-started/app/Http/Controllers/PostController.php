@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Post;
 use App\Like;
-
+use App\Tag;
 class PostController extends Controller
 {
     
@@ -25,7 +25,9 @@ class PostController extends Controller
 
     public function getAdminCreate()
     {
-        return view('admin.create');
+        // so in the form you need to provide the tags too
+        $tags = Tag::all();
+        return view('admin.create',['tags'=>$tags]);
     }
 
     // this function will show the index file
@@ -57,6 +59,12 @@ class PostController extends Controller
             'content'=>$request->input('content')
         ]);
         $post->save();
+        // now here we attach the tags array directly
+        // request->input('tags') will take the whole array
+        // but we have to check it first because
+        // user may dont check any tags
+        $post->tags()->attach($request->input('tags') === null ? [] : $request->input('tags'));
+        //
 
         return redirect()->route('admin.index')->with('info','Post Created ,Title is '. $request->input('title'));
     }
@@ -64,7 +72,11 @@ class PostController extends Controller
     public function getAdminEdit($id){
         // editing function will be here
         $post = Post::find($id);
-        return view('admin.edit', ['post' => $post, 'postId' => $id]);
+        // and also in the edit form we need to show them too
+
+        $tags = Tag::all();
+
+        return view('admin.edit', ['post' => $post, 'postId' => $id,'tags'=>$tags]);
     }
 
 
@@ -83,7 +95,12 @@ class PostController extends Controller
         $post->title = $request->input('title');
         $post->content = $request->input('content');
         $post->save();
-       
+        
+        // in the edit we need to firstdeatch first but there is a better solution
+        // the sync() is a deatch function
+        // but it will only detect the change insted of detaching all
+        $post->tags()->sync($request->input('tags') === null ? [] : $request->input('tags'));
+
         return redirect()->route('admin.index')->with('info', 'Post edited, new Title is: ' . $request->input('title'));
     }
 
@@ -96,7 +113,7 @@ class PostController extends Controller
 
         // save it
         $post->likes()->save($like);
-
+        $post->tags()->detach();
         // return to the blog
         return redirect()->back();
     }
