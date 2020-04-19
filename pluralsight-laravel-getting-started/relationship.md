@@ -27,6 +27,20 @@ $likes = Post::find(10)->likes;
 
 // you can order it with a query builder like
 
+// egar loading
+
+$post = Post::where('id',$id)->with('likes')->first();
+        
+
+// in many to many relationship you need a
+// pivot table
+//laravel expect this
+
+Post model and Tag model
+
+pivot table name will be post_tag
+
+
 $likes = Post::find(10)->likes()->order_by(...)->get();
 
 //insert data
