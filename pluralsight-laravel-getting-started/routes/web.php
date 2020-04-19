@@ -21,6 +21,15 @@ Route::get('post/{id}', [
     'as' => 'blog.post'
 ]);
 
+
+// as long there is a 'as' in Route dont worry about the url 
+// you need to match the as not the url
+Route::get('post/{id}/like', [
+    'uses' => 'PostController@getLikePost',
+    'as' => 'blog.post.like'
+]);
+
+
 Route::get('about', function () {
     return view('other.about');
 })->name('other.about');

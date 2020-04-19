@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Post;
+use App\Like;
 
 class PostController extends Controller
 {
@@ -86,6 +87,19 @@ class PostController extends Controller
         return redirect()->route('admin.index')->with('info', 'Post edited, new Title is: ' . $request->input('title'));
     }
 
+    public function getLikePost($id){
+        // here we store likes
+        // get the post
+        $post = Post::where('id',$id)->first();
+        //make a like object
+        $like = new Like();
+
+        // save it
+        $post->likes()->save($like);
+
+        // return to the blog
+        return redirect()->back();
+    }
 
 
         // getting a single post
@@ -100,7 +114,11 @@ class PostController extends Controller
     }
 
     public function getAdminDelete($id){
+
+        /// now if you want to delete the post 
+        // you need to delete the likes too
         $post = Post::find($id);
+        $post->likes()->delete();
         $post->delete();
         return redirect()->route('admin.index')->with('info', 'Post Deleted, new Title is: ');
 
