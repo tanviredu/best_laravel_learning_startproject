@@ -17,5 +17,29 @@ some asumption
 you need to have a foreigh key in likes
 one post have multiple likes and the foreign key name is post_id in likes
 
+php artisan migrate:refresh --seed
+
+// fetching data
+
+find all the likes in a spefic Post like post no 10
+
+$likes = Post::find(10)->likes;
+
+// you can order it with a query builder like
+
+$likes = Post::find(10)->likes()->order_by(...)->get();
+
+//insert data
+
+
+//find the post
+$post = Post::find(10);
+$like = new Like()
+$post->likes()->save($like)
+
+
+
+
+
 
 
