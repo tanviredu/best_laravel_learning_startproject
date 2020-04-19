@@ -19,6 +19,10 @@ class CreateLikesTable extends Migration
             $table->increments('id');
             $table->timestamps();
 
+            // this is used as default assumption of 
+            // laravel
+            $table->integer('post_id');
+
         });
     }
 

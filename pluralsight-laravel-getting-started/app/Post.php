@@ -11,5 +11,7 @@ class Post extends Model
     // enter the fillable column
     protected $fillable = ['title','content'];
 
-
+    public function likes(){
+        return $this->hasMany('App\Like');
+        }
 }
