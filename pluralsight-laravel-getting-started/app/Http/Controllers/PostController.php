@@ -108,7 +108,10 @@ class PostController extends Controller
         // find uses the find / this is the eloquent
         //$post = Post::find($id); 
         // this is the querybuilder 
-        $post = Post::where('id',$id)->first();
+        
+        
+        // make the egar loading
+        $post = Post::where('id',$id)->with('likes')->first();
         // this is the alternative
         return view('blog.post', ['post' => $post]);
     }
