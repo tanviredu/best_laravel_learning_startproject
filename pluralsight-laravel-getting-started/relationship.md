@@ -84,5 +84,8 @@ select a specfic tag with its id for example
 $tagId = 1
 $post->tags()->attach($tagId);
 
+// delete
+$post->tags()->detach($tagId);
+
 // insted of save you will use attach
 // thats will populate the pivot table
