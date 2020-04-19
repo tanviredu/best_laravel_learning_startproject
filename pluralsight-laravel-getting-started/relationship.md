@@ -80,10 +80,8 @@ $tags = Post::find(10)->tags()->get();
 
 $post = Post::find(10);
 
-// make a tag assign to 1
-// this will say yes we have relation ship in the table denoted to 1
+select a specfic tag with its id for example
 $tagId = 1
-
 $post->tags()->attach($tagId);
 
 // insted of save you will use attach
