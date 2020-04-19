@@ -13,6 +13,25 @@
                     <label for="content">Content</label>
                     <input type="text" class="form-control" id="content" name="content">
                 </div>
+
+                {{-- here we loop the tags --}}
+
+                @foreach($tags as $tag)
+                    <div class="checkbox">
+
+                    {{-- so here when we submit form we have a checkbox to add tag  
+                    and in the name tags[] array will give use store multiple tags in html form
+                    --}}
+                        <label>
+                            <input type="checkbox" name="tags[]" value="{{$tag->id}}">{{ $tag->name }}
+                        </label>
+                    </div>
+
+                @endforeach
+
+
+
+
                 {{ csrf_field() }}
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

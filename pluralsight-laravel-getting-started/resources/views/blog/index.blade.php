@@ -10,6 +10,23 @@
     <div class="row">
         <div class="col-md-12 text-center">
             <h1 class="post-title">{{ $post->title }}</h1>
+
+{{-- we show all the tags here --}}
+
+            <p style="font-weight: bold">
+            {{-- each post can have multiple tags so we can nested loop here --}}
+                @foreach($post->tags as $tag)
+                -- {{$tag->name}} --
+                @endforeach
+            </p>
+
+
+
+
+
+
+
+
             <p>{{ $post->content }}!</p>
             <p><a href="{{ route('blog.post', ['id' => $post->id]) }}">Read more...</a></p>
         </div>

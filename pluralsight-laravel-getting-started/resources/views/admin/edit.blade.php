@@ -23,6 +23,30 @@
                             name="content"
                             value="{{ $post->content}}">
                 </div>
+                {{-- here we loop the tags --}}
+
+@foreach($tags as $tag)
+    <div class="checkbox">
+
+    {{-- so here when we submit form we have a checkbox to add tag  
+    and in the name tags[] array will give use store multiple tags in html form
+    --}}
+        <label>
+
+        {{-- in the edit we just add a logic to see if the checkbox is already checked --}}
+            <input type="checkbox" name="tags[]" value="{{$tag->id}}" {{ $post->tags->contains($tag->id) ? 'checked' : '' }}>{{ $tag->name }}
+        </label>
+    </div>
+
+@endforeach
+
+
+
+
+
+
+
+
                 {{ csrf_field() }}
                 <input type="hidden" name="id" value="{{ $postId }}">
                 <button type="submit" class="btn btn-primary">Submit</button>
