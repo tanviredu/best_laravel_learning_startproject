@@ -37,7 +37,7 @@ class PostController extends Controller
         //$posts = Post::all();
         // now we will use the query builder
         // now the last post comes first
-        $posts = Post::orderBy('created_at','desc')->get();
+        $posts = Post::orderBy('created_at','desc')->paginate(3);
         return view('blog.index',['posts'=>$posts]);
     }
 
