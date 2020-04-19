@@ -32,14 +32,6 @@ $likes = Post::find(10)->likes;
 $post = Post::where('id',$id)->with('likes')->first();
         
 
-// in many to many relationship you need a
-// pivot table
-//laravel expect this
-
-Post model and Tag model
-
-pivot table name will be post_tag
-
 
 $likes = Post::find(10)->likes()->order_by(...)->get();
 
@@ -55,5 +47,44 @@ $post->likes()->save($like)
 
 
 
+// in many to many relationship you need a
+// pivot table
+//laravel expect this
+
+Post model and Tag model
+
+pivot table name will be post_tag
+
+php artisan make:migration create_post_tag_table
+
+and in the table foreign key will be
+
+post_id and tag_id
+
+and you access data just like a one to many relationship
+
+// fetch data
+
+$tags = Post::find(10)->tags;
+
+/query builder
+
+$tags = Post::find(10)->tags()->get();
 
 
+
+
+// the main difference is in the inserting the data
+
+// get the post
+
+$post = Post::find(10);
+
+// make a tag assign to 1
+// this will say yes we have relation ship in the table denoted to 1
+$tagId = 1
+
+$post->tags()->attach($tagId);
+
+// insted of save you will use attach
+// thats will populate the pivot table
